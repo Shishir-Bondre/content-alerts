@@ -17,6 +17,8 @@ def get_district(request):
 
 def index(request):
     response = requests.get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
+    print(response.status_code)
+    print("inside index")
     if response.status_code == 200:
         print(response.json())
         json = response.json()
