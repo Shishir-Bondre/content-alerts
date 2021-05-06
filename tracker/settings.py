@@ -126,12 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 # settings/base.py
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_URL = '/static/'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Extra places for collectstatic to find static files.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
