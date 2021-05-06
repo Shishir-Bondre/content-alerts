@@ -128,9 +128,13 @@ USE_TZ = True
 # settings/base.py
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = "/static/"
-# STATICFILES_DIR = [
-#     os.path.join(BASE_DIR, "admin/")
-# ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
