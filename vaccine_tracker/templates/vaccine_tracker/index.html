@@ -1,0 +1,49 @@
+<h1> Welcome to Vaccine tracker</h1>
+<br>
+
+<h1> Select state </h1>
+
+{% if states %}
+<form action="{% url 'district' %}" method="post">
+    {% csrf_token %}
+    <select name="state_id" >
+        {% for state in states %}
+        <option value="{{ state.state_id }}"> {{ state.state_name }} </option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="submit">
+</form>
+{% endif %}
+
+{% if districts %}
+
+<form action="{% url 'tracker' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="email_id" id="email_id">
+    <label> Email Id </label>
+    <br>
+    <input type="text" name="mobile_no" id="mobile_no">
+    <label> Mobile No </label>
+    <br>
+    <input type="text" name="pincode" id="pincode">
+    <label> Pincode </label>
+    <br>
+    {% if districts %}
+    <select name="district">
+        {% for district in districts %}
+        <option value="{{ district }}"> {{ district.district_name }} </option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    <label> District Id </label>
+    <br>
+    <input type="radio" name="min_age_limit" id="18" value=18>
+    <label> 18+ </label>
+    <br>
+    <input type="radio" name="min_age_limit" id="45" value=45>
+    <label> 45+ </label>
+    <br>
+    <input type="submit" value="submit">
+</form>
+{% endif %}
