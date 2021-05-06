@@ -16,7 +16,7 @@ from decouple import config
 from celery.schedules import crontab
 
 import mimetypes
-mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".css", True)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -131,8 +131,6 @@ USE_TZ = True
 # settings/base.py
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
