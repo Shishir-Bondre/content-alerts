@@ -1,0 +1,60 @@
+version: '3.5'
+services:
+
+  broker:
+    image: rabbitmq:3
+    env_file: &envfile
+      - .env
+    ports:
+      - 5672:5672
+
+  celery-worker:
+    build: .
+    image: &celery celery-workers
+    container_name: celery-worker
+    command: celery -A tracker worker --loglevel=info
+    env_file: *envfile
+    volumes:
+      - .:/app
+    depends_on:
+      - broker
+      - celery-beat
+
+  celery-beat:
+    build: .
+    image: *celery
+    container_name: celery-beat
+    command: celery -A tracker beat --loglevel=info
+    env_file: *envfile
+    volumes:
+      - .:/app
+    depends_on:
+      - broker
+
+  web:
+    build: .
+    image: &app tracker-app
+    restart: "always"
+    command: ["python3", "manage.py", "runserver"]
+    env_file: *envfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - broker
+      - celery-worker
+      - celery-beat
+      - migration
+
+  migration:
+    build: .
+    image: *app
+    restart: "no"
+    command: [ "python3", "manage.py", "migrate", "--run-syncdb" ]
+    volumes:
+      - .:/app
+    depends_on:
+      - broker
+      - celery-worker
+      - celery-beat
