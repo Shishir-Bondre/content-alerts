@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -128,6 +128,9 @@ USE_TZ = True
 # settings/base.py
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
+# STATICFILES_DIR = [
+#     os.path.join(BASE_DIR, "admin/")
+# ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
