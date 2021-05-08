@@ -1,7 +1,20 @@
-<h1> Welcome to Vaccine tracker</h1>
+<h1> Welcome to Vaccine slot tracker</h1>
+<p> As soon as the vaccine slot is available. You will get the email notification on your email id.
+<br> This will contain center name, vaccine name and capacity. Then you can visit and register on <a href="https://www.cowin.gov.in/home" target="_blank"> https://cowin.gov.in</a>
+<br>
+<ul><h4> Note </h4>
+<li> Make sure that the email id is correct </li>
+<li> First select the state and then select the district </li>
+<li> Make sure pincode is correct otherwise district would be used </li>
+<li> Check you spam folder for initial notification. For this you can test email id </li>
+</ul>
 <br>
 
-<h1> Select state </h1>
+<h4> Test your email id here <a href="{% url 'trail' %}"> click here </a> </h4>
+
+<h3> Vaccine slot tracking form </h3>
+
+<h4> Select state </h4>
 
 {% if states %}
 <form action="{% url 'district' %}" method="post">
@@ -10,8 +23,7 @@
         {% for state in states %}
         <option value="{{ state.state_id }}"> {{ state.state_name }} </option>
         {% endfor %}
-    </select>
-    <br>
+    </select><br><br>
     <input type="submit" value="submit">
 </form>
 {% endif %}
@@ -20,11 +32,8 @@
 
 <form action="{% url 'tracker' %}" method="post">
     {% csrf_token %}
-    <input type="text" name="email_id" id="email_id">
+    <input type="text" name="email_id" id="email_id" required>
     <label> Email Id </label>
-    <br>
-    <input type="text" name="mobile_no" id="mobile_no">
-    <label> Mobile No </label>
     <br>
     <input type="text" name="pincode" id="pincode">
     <label> Pincode </label>
@@ -38,12 +47,17 @@
     {% endif %}
     <label> District Id </label>
     <br>
-    <input type="radio" name="min_age_limit" id="18" value=18>
+    <label> Age limit </label><br>
+    <input type="radio" name="min_age_limit" id="18" value=18 required>
     <label> 18+ </label>
     <br>
-    <input type="radio" name="min_age_limit" id="45" value=45>
+    <input type="radio" name="min_age_limit" id="45" value=45 >
     <label> 45+ </label>
-    <br>
+    <br><br>
     <input type="submit" value="submit">
 </form>
 {% endif %}
+
+<br>
+<h4>No longer want to recieve emails then to unsubscribe <a href="{% url 'unsubscribe' %}"> click here </a> </h4>
+<br> Made by Shishir bondre, you can contact me at <a href="mailto: emailshishir07@gmail.com" target="_blank"> emailshishir07@gmail.com </a>

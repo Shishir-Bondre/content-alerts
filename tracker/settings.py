@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 PRODUCTION = True
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vaccine_tracker.apps.VaccineTrackerConfig',
     'django_celery_beat',
+    'tracker',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +139,11 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULE = {
     'check_for_slot_every_15_mins': {
         'task': 'vaccine_tracker.tasks.check_for_slot_every_15_mins',
-        'schedule': crontab(minute="*/1"),
+        'schedule': crontab(minute="*/5"),
+    },
+    'clean_up_task_result_every_15_mins': {
+        'task': 'vaccine_tracker.tasks.clean_up_task_result_every_15_mins',
+        'schedule': crontab(minute="*/10"),
     },
 }
 
@@ -147,5 +152,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = "timetobookyourslot@gmail.com"
+EMAIL_HOST_PASSWORD = "qazwsx@123"

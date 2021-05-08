@@ -1,0 +1,9 @@
+<h1> Unsubscribe here </h1>
+
+<form action="{% url 'unsubscribe' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="email_id" id="email_id" required>
+    <label> Email Id </label>
+    <br><br>
+    <input type="submit" value="submit">
+</form>
